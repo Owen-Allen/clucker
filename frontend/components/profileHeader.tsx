@@ -16,7 +16,7 @@ export default function ProfileHeader({profile, menu, setMenu}: any) {
     <Card className="border-black rounded-2xl border-2 border-b-4 border-r-4 shadow-xl">
     <div className="flex flex-row">
     <CardHeader>
-        <CardTitle>{profile.id}</CardTitle>
+        <CardTitle><Link className="hover:underline" href={`/user/${profile.id}`}>{profile.id}</Link></CardTitle>
         <CardDescription>{profile.name} </CardDescription>
     </CardHeader>
     <CardHeader className="ml-auto">

@@ -27,9 +27,7 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Cluck({ user_id, cluck_id, author, content, created_at, is_deleted }: Props) {
-
 	let selected_date = new Date(created_at)
-
 	const [liked, setLiked] = useState(false)
 
 	const likeHandler = async (e: any) => {
