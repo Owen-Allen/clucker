@@ -2,27 +2,31 @@
 
 TODO
 
-- Connect frontend to backend X
-- implement feed logic X
-- no spaces or special characters in id's (later)
-- create NavBar X
-- implement context and state for cluck modal
-- connect to google auth X
-    - do i need to add an Authorised redirect url? https://youtu.be/AbUVY16P4Ys?t=530
-
+- Connect frontend & backend         X
+- implement feed logic               X
+- no spaces or special chars in ids
+- create NavBar                      X
+- implement context and state for cluck modal [ USING QUERY PARAMS INSTEAD ] X
+- connect to google auth             X
 - finish cluck design
-    - 
+    - add 'liked by' way to access liked list
+    - add a reply button
+    - add a tool menu to access (triple dot top right or wheel symbol?)
+        - the delete button.
+    - add time stamp of date posted
+
+- validate session in layout.tsx
 
 - Profile
-    - userid
-    - name
-    - about
+    - userid        X
+    - name          X
+    - about         X
     - followers
     - following
-    selector for
-        - clucks
-        - liked clucks
-        - replies
+    selector for    X
+        - clucks    X
+        - likes     
+        - replies   
 
 
 ## Key commands
@@ -34,25 +38,17 @@ Change your models (in models.py).
 - python manage.py makemigrations to create migrations for those changes
 - python manage.py migrate to apply those changes to the database.
 
-
-### Replies and Deletes
-- Q: What happens to the replies to a cluck when a user delete's their cluck
-- A: When the cluck is "deleted", the is_deleted is set to True and all of the contents are deleted. The Cluck is NOT removed from the DB so that the linkedlist of replies stays.
-
-## Frontend Ideas
-- cluck sound on send cluck?
-- top right cluck
-- top left profile
-- top middle search?
-
 ## Feed Logic
 fetch from the user's following as well as their OWN clucks, sort all by created_at
 
 - How do we visualize replies, and the different reply chains?
     - reddit like indentation?
     - 'blocks' like figma demo?
-    - clicking on a cluck will open a Modal, where you can see the replies
+
 
 ### REPLY LOGIC
 - if you follow user x and NOT user y, and x responded to y, x's cluck will be in your feed, and you can click to see the whole feed
 - if you follow user x and user y, and x responded to y, x's cluck will not be in your feed? but maybe it should be default uncollapsed?
+
+- (Deletes) if a Cluck is deleted and someone has replied to that Cluck, the reply chain is NOT deleted
+        - instead, mark the cluck as is_deleted and we will not display its contents or the user who posted it
