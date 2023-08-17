@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 export default function GoogleSignInButton() {
 
     const handleClick = async () => {
+        console.log('signin handler')
         await signIn("google", { callbackUrl: '/feed' })
     }
 
