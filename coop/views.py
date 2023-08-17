@@ -60,7 +60,6 @@ def userid(request):
 
 @api_view(['GET', 'POST', 'DELETE'])
 def like_detail(request):
-    
     if request.method == 'GET':
         # fizz buzz
         print("GET")
@@ -101,9 +100,68 @@ def like_detail(request):
         return Response({'status':status.HTTP_404_NOT_FOUND})
 
 
+@api_view(['POST', 'DELETE'])
+def cluck_detail(request):
+    if request.method == "POST":
+        print("POST")
+        print(request.data)
+        serializer = CluckSerializer(data=request.data)
+        if serializer.is_valid():
+            print('serializer valid')
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    
+    elif request.method == "DELETE":
+        print(request.data)
+        if 'user_id' in request.data and 'cluck' in request.data: 
+            likes = Like.objects.filter(user=request.data['user'], cluck=request.data['cluck'])
+            print(likes)
+            if likes.count() == 1:
+                likes.delete()
+                return Response({'status':status.HTTP_204_NO_CONTENT})
+        return Response(status.status.HTTP_404_NOT_FOUND)
 
+@api_view(['GET', 'POST', 'DELETE'])
+def follow_detail(request):
+    if request.method == 'GET':
+        # fizz buzz
+        print("GET")
+        print(request.query_params)
+        serializer = None
+        if 'user_id' in request.query_params and 'following' in request.query_params:
+            Follows = Follow.objects.filter(user_id=request.query_params['user_id'], following=request.query_params['following'])
+            if Follows.count() == 0:
+                return Response({'status_code': 404, 'data':[], 'message': f'No Follow exists with that following and user'})
+            serializer = FollowSerializer(Follows, many=True) # needs many = True, even though it is not possible to have duplicate Follows. Could use a get() instead of filter() but don't want a 404
+        elif 'user_id' in request.query_params:
+            Follows = Follow.objects.filter(user_id=request.query_params['user_id'])
+            serializer = FollowSerializer(Follows, many=True)
+        elif 'following' in request.query_params:
+            Follows = Follow.objects.filter(following=request.query_params['following'])
+            serializer = FollowSerializer(Follows, many=True)
+        if(serializer): return Response({'status_code': 200, 'data': serializer.data})
+        return Response({'message': 'Please provide following id or user id.'})
+    
+    elif request.method == "POST":
+        print("POST")
+        print(request.data)
+        serializer = FollowSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return  Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    
+    elif request.method == "DELETE":
+        print(request.data)
+        if 'user_id' in request.data and 'following' in request.data:
+            Follows = Follow.objects.filter(user_id=request.data['user_id'], following=request.data['following'])
+            if Follows.count() == 1:
+                Follows.delete()
+                return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'status':status.HTTP_404_NOT_FOUND})
 
 @api_view(['GET'])
 def feed(request):

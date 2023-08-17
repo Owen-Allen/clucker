@@ -33,5 +33,7 @@ urlpatterns = [
     path('api/userid/', views.userid),
     path('api/feed/', views.feed),
     path('api/like_detail/', views.like_detail),
-    path('api/clucks_author/', views.clucks_author)
+    path('api/clucks_author/', views.clucks_author),
+    path('api/cluck_detail/', views.cluck_detail),
+    path('api/follow_detail/', views.follow_detail),
 ]
