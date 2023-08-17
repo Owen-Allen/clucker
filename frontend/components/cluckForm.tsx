@@ -1,9 +1,9 @@
 "use client"
  
-import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useForm } from "react-hook-form"
+import { useRouter } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -15,13 +15,16 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+
+import { Textarea } from "@/components/ui/textarea"
  
 const formSchema = z.object({
-  content: z.string().min(1).max(20),
+  content: z.string().min(1).max(300),
 })
 
-export default function CluckForm(){
+export default function CluckForm({ user }: any){
+  const router = useRouter()
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -31,36 +34,44 @@ export default function CluckForm(){
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ author: user.id, content: values.content })
+    }
     console.log(values)
+    const response = await fetch(`http://127.0.0.1:9000/api/cluck_detail/`, requestOptions)
+    const data = await response.json()
+    if(response.status === 201){
+      router.push('/feed')
+    }
   }
 
-
   return (
-    <Form {...form} >
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+    <Form {...form}>
+      <div className="flex">
+        <button onClick={() => {router.back()}}className="-mt-2 ml-auto mb-2" >X</button>
+      </div>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
           name="content"
           render={({ field }) => (
-            <FormItem className='w-full'>
-              <FormLabel>Username</FormLabel>
+            <FormItem>
               <FormControl>
-                <Input placeholder="What you wanna cluck?" {...field} />
-                {/* <div className="flex flex-col">
-                <textarea id="message" rows={4} placeholder="Write your thoughts here..."></textarea>
-                </div> */}
+                <Textarea placeholder="What you wanna cluck?" {...field} />
               </FormControl>
-              {/* <FormDescription>
-                This is your public display name.
-              </FormDescription> */}
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <div className='flex'>
+           <Button className="mx-auto"type="submit">Submit</Button>
+        </div>
       </form>
     </Form>
   )

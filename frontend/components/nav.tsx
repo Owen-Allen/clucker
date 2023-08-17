@@ -9,7 +9,6 @@ import { usePathname } from 'next/navigation';
 const inter = Inter({ subsets: ['latin'] })
 const Nav = ({ user }: any) => {
 
-
     const pathname = usePathname()
 
     if (pathname === '/'){ return (<></>) }
