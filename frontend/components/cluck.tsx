@@ -22,20 +22,19 @@ export interface Props {
 
 
 import { Inter } from 'next/font/google'
+import { number } from "zod"
  
 // If loading a variable font, you don't need to specify the font weight
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Cluck({ user_id, cluck_id, author, content, created_at, is_deleted }: Props) {
-	let selected_date = new Date(created_at)
+	const date = new Date(created_at)
+	const date_readable = `${date.getHours() % 12}:${date.getMinutes()}${date.getHours() > 12 ? "pm" : "am"} ${date.toDateString().split(" ").slice(1).join(" ")}`
 	const [liked, setLiked] = useState(false)
 
 	const likeHandler = async (e: any) => {
 		e.preventDefault()
 		const updatedLiked = !liked
-		setLiked(updatedLiked)
-
-		console.log(updatedLiked)
 
 		if (updatedLiked) {
 			const requestOptions = {
@@ -70,7 +69,6 @@ export default function Cluck({ user_id, cluck_id, author, content, created_at, 
 			const response = await fetch(`http://127.0.0.1:9000/api/like_detail/?cluck=${cluck_id}&user=${user_id}`)
 			const data = await response.json()
 			if (data?.status_code == 200) {
-				console.log(data)
 				setLiked(true)
 			}
 		}
@@ -87,6 +85,7 @@ export default function Cluck({ user_id, cluck_id, author, content, created_at, 
 				<p>{content}</p>
 			</CardContent>
 			<CardFooter className="justify-end">
+				<a className="mr-auto text-xs text-slate-600">{date_readable}</a>
 				<button onClick={likeHandler}>
 					{/* SVG FROM https://www.svgrepo.com/svg/513469/heart */}
 					<svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
