@@ -17,13 +17,17 @@ export const authOptions = {
       // 1. if they are logged in with session.user.id, return session
       // 2. elif, check if they have an account registered with their email then assign the email and send them to feed
       // 3. elif, send them to sign up page
+      console.log('getting session')
+      console.log(session)
 
       if(session.user.id){
         return session
       }
-
       const res = await fetch(`http://127.0.0.1:9000/api/userid/?email=${session.user.email}`)
+      // console.log(res)
       const user = await res.json()
+
+      // console.log(user)
 
       if (user?.id){ // they already have an account
         // console.log(user.id)
@@ -31,6 +35,7 @@ export const authOptions = {
         return session
       }else{
         // redirect to some sign up process
+        console.log("route.js could not find the user in the backend. They either do not have an account, or there was an error fetching")
         return session
       }
     }

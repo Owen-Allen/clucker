@@ -21,44 +21,39 @@ export interface Props {
 }
 
 
-import { Inter } from 'next/font/google'
-import { number } from "zod"
- 
-// If loading a variable font, you don't need to specify the font weight
-const inter = Inter({ subsets: ['latin'] })
-
 export default function Cluck({ user_id, cluck_id, author, content, created_at, is_deleted }: Props) {
 	const date = new Date(created_at)
-	const date_readable = `${date.getHours() % 12}:${date.getMinutes()}${date.getHours() > 12 ? "pm" : "am"} ${date.toDateString().split(" ").slice(1).join(" ")}`
+	const date_readable = `${date.getHours() % 12}:${date.getMinutes().toString().padStart(2, '0')}${date.getHours() > 12 ? "pm" : "am"} ${date.toDateString().split(" ").slice(1).join(" ")}`
 	const [liked, setLiked] = useState(false)
 
 	const likeHandler = async (e: any) => {
 		e.preventDefault()
-		const updatedLiked = !liked
 
-		if (updatedLiked) {
-			const requestOptions = {
+		const requestOptions = {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ user: user_id, cluck: cluck_id })
 			}
-			const response = await fetch(`http://127.0.0.1:9000/api/like_detail/`, requestOptions)
-			const data = await response.json()
-			if (data.status_code == 201) {
-				setLiked(updatedLiked)
-			}
-		} else {
-			// this means they 'unliked' it, we need to send a delete
-			const requestOptions = {
-				method: 'DELETE',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ user: user_id, cluck: cluck_id })
-			}
-			const response = await fetch(`http://127.0.0.1:9000/api/like_detail/`, requestOptions)
-			const data = await response.json()
-			if (data.status_code == 204) {
-				setLiked(updatedLiked)
-			}
+		const response = await fetch(`http://127.0.0.1:9000/api/like_detail/`, requestOptions)
+		const data = await response.json()
+		// console.log(response)
+		// console.log(data)
+		if (response.status == 201) {
+			setLiked(true)
+		}
+	}
+
+	const dislikeHandler = async (e: any) => {
+		const requestOptions = {
+			method: 'DELETE',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ user: user_id, cluck: cluck_id })
+		}
+		const response = await fetch(`http://127.0.0.1:9000/api/like_detail/`, requestOptions)
+		// console.log(response)
+
+		if (response.status == 204) {
+			setLiked(false)
 		}
 	}
 
@@ -67,8 +62,8 @@ export default function Cluck({ user_id, cluck_id, author, content, created_at, 
 		// check if the user has previously like this cluck, and setLiked accordingly
 		const getLiked = async () => {
 			const response = await fetch(`http://127.0.0.1:9000/api/like_detail/?cluck=${cluck_id}&user=${user_id}`)
-			const data = await response.json()
-			if (data?.status_code == 200) {
+			if (response.status == 200) {
+
 				setLiked(true)
 			}
 		}
@@ -86,7 +81,7 @@ export default function Cluck({ user_id, cluck_id, author, content, created_at, 
 			</CardContent>
 			<CardFooter className="justify-end">
 				<a className="mr-auto text-xs text-slate-600">{date_readable}</a>
-				<button onClick={likeHandler}>
+				<button onClick={(e) => {liked ? dislikeHandler(e) : likeHandler(e)}}>
 					{/* SVG FROM https://www.svgrepo.com/svg/513469/heart */}
 					<svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
 						width="25px" height="25px" viewBox="0 0 64 64" enableBackground="new 0 0 64 64">

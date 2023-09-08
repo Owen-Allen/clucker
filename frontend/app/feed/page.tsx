@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { redirect } from 'next/navigation'
 
 import { getServerSession } from "next-auth"
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
@@ -13,6 +14,11 @@ interface Props {
 
 export default async function Page({ searchParams } : Props ) {
   const session = await getServerSession(authOptions)
+
+  if(!session){
+    redirect('/signin')
+  }
+
   return (
     <>
     <main className="flex min-h-screen flex-col items-center justify-between py-4 px-16 bg-sky-400">

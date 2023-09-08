@@ -13,15 +13,16 @@ export default function FeedClucks({ user }: Props) {
     useEffect(() => {
         const getClucks = async () => {
             const response = await fetch(`http://127.0.0.1:9000/api/feed/?id=${user.id}`)
-            const data = await response.json()
-            setClucks(data["clucks"])
+            console.log(response)
+            if(response.status === 200){
+                const data = await response.json()
+                // console.log(data)
+                setClucks(data.clucks)
+            }
         }
         if (user) { getClucks() }
     }, [user])
 
-    useEffect(() => {
-        console.log(clucks)
-    }, [clucks])
 
     return (
         <div className="w-full flex flex-col gap-4">

@@ -43,7 +43,7 @@ export default function CluckForm({ user }: any){
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ author: user.id, content: values.content })
     }
-    console.log(values)
+    // console.log(values)
     const response = await fetch(`http://127.0.0.1:9000/api/cluck_detail/`, requestOptions)
     const data = await response.json()
     if(response.status === 201){

@@ -15,10 +15,6 @@ export default function ProfileClucks({ user, profile }: any) {
         if (user) { getClucks() }
     }, [user])
 
-    useEffect(() => {
-        console.log(clucks)
-    }, [clucks])
-
     return (
         <div className="w-11/12 flex ml-auto flex-col gap-4">
             {clucks.map((c: any) => <Cluck key={c.id} user_id={user.id} cluck_id={c.id} author={c.author} content={c.content} created_at={c.created_at} is_deleted={c.is_deleted} />)}

@@ -12,7 +12,6 @@ import Link from 'next/link'
 import { Button } from './ui/button'
 
 export default function ProfileHeader({ user, profile, menu, setMenu }: any) {
-
     const isMyProfile = user.id == profile.id ? true : false
     const [isFollowing, setIsFollowing] = useState(false)
 
@@ -45,21 +44,23 @@ export default function ProfileHeader({ user, profile, menu, setMenu }: any) {
 		}
 	}
 
+    console.log(isMyProfile)
 
     useEffect(() => {
         // check if the user has previously like this cluck, and setLiked accordingly
         const getFollowing = async () => {
             const response = await fetch(`http://127.0.0.1:9000/api/follow_detail/?user_id=${user.id}&following=${profile.id}`)
             const data = await response.json()
-            if (data?.status_code == 200) {
-                console.log(data)
+            if (response.status === 200) {
                 setIsFollowing(true)
+            }else{
+                setIsFollowing(false)
             }
         }
         getFollowing()
     }, [])
 
-    console.log(isFollowing)
+    // console.log(isMyProfile)
     return (
         <Card className="border-black rounded-2xl border-2 border-b-4 border-r-4 shadow-xl">
             <div className="flex flex-row">
@@ -69,12 +70,13 @@ export default function ProfileHeader({ user, profile, menu, setMenu }: any) {
                 </CardHeader>
                 <CardHeader className="ml-auto">
                     <CardTitle className="flex flex-row gap-2 sm:gap-8 sm:mr-12">
-                        {isFollowing ?
-                            <Button id='following' onClick={followHandler}> Following </Button>
-                            :
-                            <Button id='follow' onClick={followHandler}> Follow </Button>
-
-                        }
+                    {!isMyProfile ? (
+                        isFollowing ? 
+                            <Button  className="w-24 bg-yellow-300 text-black hover:bg-yellow-300 disabled:pointer-events-none" id='following' onClick={followHandler}> Following </Button>
+                         : 
+                            <Button className="w-24 bg-red-500 text-black hover:bg-red-500 disabled:pointer-events-none" id='follow' onClick={followHandler}> Follow </Button>
+                        
+                        ) : null}
                     </CardTitle>
                 </CardHeader>
             </div>
