@@ -1,7 +1,10 @@
 # Clucker
 Clucker is a text-based social media app.
 
+<img src="https://github.com/Owen-Allen/clucker/blob/main/feed.jpg" width="200">
+
 ![app feed](https://github.com/Owen-Allen/clucker/blob/main/feed.jpg)
+
 ![app login](https://github.com/Owen-Allen/clucker/blob/main/login.jpg)
 
 ## Tech Stack
