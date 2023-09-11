@@ -69,7 +69,7 @@ export default function Cluck({ user_id, cluck_id, author, content, created_at, 
 			}
 		}
 		getLiked()
-	}, [])
+	}, [cluck_id, user_id])
 
 	return (
 		<Card className="border-black rounded-2xl border-2 border-b-4 border-r-4 shadow-xl">

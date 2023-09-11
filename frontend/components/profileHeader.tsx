@@ -57,7 +57,7 @@ export default function ProfileHeader({ user, profile, menu, setMenu }: any) {
         if(!isMyProfile){
             getFollowing()
         }
-    }, [])
+    }, [user.id, profile.id, isMyProfile])
 
     // console.log(isMyProfile)
     return (

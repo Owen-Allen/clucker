@@ -16,7 +16,7 @@ export default function ProfileClucks({ user, profile }: any) {
             }
         }
         if (user) { getClucks() }
-    }, [user])
+    }, [user, profile.id])
 
     return (
         <div className="w-11/12 flex ml-auto flex-col gap-4">

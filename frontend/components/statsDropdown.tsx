@@ -31,7 +31,7 @@ export default function StatsDropdown({ cluck_id }: { cluck_id: number }) {
     };
 
     getLikeData();
-  }, []);
+  }, [cluck_id]);
 
   return (
     <DropdownMenu>

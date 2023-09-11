@@ -4,7 +4,7 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-
+import Image from 'next/image'
 
 export default async function Page() {
 
@@ -20,10 +20,12 @@ export default async function Page() {
         <h1 className="font-mono text-xl font-semibold text-center p-4">
           Create an Account
         </h1>
-        <img
+          <Image
           className="rounded w-16 mx-auto pb-4"
           src={"/chicken.png"}
-          alt="Profile"
+          width='64'
+          height='64'
+          alt="Clucker Logo"
         />
         <SignupForm />
       </div>

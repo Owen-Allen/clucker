@@ -1,17 +1,14 @@
 "use client"
 
 import Link from 'next/link'
-import { Inter } from 'next/font/google'
 
 import { usePathname } from 'next/navigation';
 import NavDropdown from './navDropdown';
 
-const inter = Inter({ subsets: ['latin'] })
+import Image from 'next/image'
 const Nav = ({ user }: any) => {
 
     const pathname = usePathname()
-
-    if (pathname === '/'){ return (<></>) }
 
     return (
         <nav
@@ -23,8 +20,10 @@ const Nav = ({ user }: any) => {
                 >
                     <NavDropdown user={user} />
                     <a href="/feed" className="w-12 ml-auto -mr-12 cursor-pointer">
-                    <img
+                    <Image
                         src={"/chicken_bg_white.png"}
+                        width={500}
+                        height={500}
                         alt="Click here to go to feed"
                     />
                     </a>
