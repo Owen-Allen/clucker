@@ -88,7 +88,7 @@ def like_detail(request):
         elif 'user' in request.query_params:
             likes = Like.objects.filter(user=request.query_params['user'])
             print(likes.values_list('cluck', flat=True))
-            liked_clucks = Cluck.objects.filter(id__in=likes.values_list('cluck', flat=True))
+            liked_clucks = Cluck.objects.filter(id__in=likes.values_list('cluck', flat=True)).order_by('-created_at')
             print(liked_clucks)
             serializer = CluckSerializer(liked_clucks, many=True)
 
