@@ -22,8 +22,8 @@ export default async function Page() {
         </div>
         <hr className="border-b border-gray-300"/>
         <div className="text-center pt-6">
-          <a className='mx-auto block'> Don't have an account?</a>
-          <a href="/signup" className='mx-auto hover:underline'>create an account </a>
+          <a className='mx-auto block'> Don&apos;t have an account?</a>
+          <a href="/signup" className='mx-auto underline'>create an account </a>
         </div>
         </div>
     </div>
