@@ -1,8 +1,9 @@
 # Clucker
 Clucker is a text-based social media app.
-
+<p float="left">
 <img alt="Image of app feed" src="https://github.com/Owen-Allen/clucker/blob/main/feed.png" width="400">
 <img alt="Image of app login" src="https://github.com/Owen-Allen/clucker/blob/main/login.png" width="400">
+</p>
 
 ## Tech Stack
 - Next.JS for the frontend
