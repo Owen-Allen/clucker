@@ -10,6 +10,7 @@ import {
 import Link from 'next/link'
 
 import { useState, useEffect } from "react"
+import StatsDropdown from "./statsDropdown"
 
 export interface Props {
 	user_id: number
@@ -73,7 +74,9 @@ export default function Cluck({ user_id, cluck_id, author, content, created_at, 
 	return (
 		<Card className="border-black rounded-2xl border-2 border-b-4 border-r-4 shadow-xl">
 			<CardHeader>
-				<CardTitle><Link className="hover:underline" href={`/user/${author}`}>{author}</Link></CardTitle>
+				<CardTitle className="flex flex-row w-full">
+					<Link className="hover:underline" href={`/user/${author}`}>{author}</Link>
+					<div className="ml-auto"><StatsDropdown cluck_id={cluck_id} /></div></CardTitle>
 				<CardDescription></CardDescription>
 			</CardHeader>
 			<CardContent >
