@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {}
 
-// module.exports = nextConfig
 
 //  https://vercel.com/guides/how-to-use-python-and-javascript-in-the-same-application
 module.exports = {
@@ -15,3 +14,5 @@ module.exports = {
     // },
     nextConfig
   }
+
+module.exports = nextConfig
