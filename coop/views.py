@@ -75,7 +75,7 @@ def userid(request):
 def like_detail(request):
     if request.method == 'GET':
         # fizz buzz
-        print("GET")
+        print("GET like_detail")
         print(request.query_params)
         serializer = None
         if 'user' in request.query_params and 'cluck' in request.query_params:
@@ -87,11 +87,17 @@ def like_detail(request):
                 return Response(status=200, data=serializer.data)
         elif 'user' in request.query_params:
             likes = Like.objects.filter(user=request.query_params['user'])
-            serializer = LikeSerializer(likes, many=True)
+            print(likes.values_list('cluck', flat=True))
+            liked_clucks = Cluck.objects.filter(id__in=likes.values_list('cluck', flat=True))
+            print(liked_clucks)
+            serializer = CluckSerializer(liked_clucks, many=True)
+
             return Response(status=status.HTTP_200_OK, data=serializer.data)
         elif 'cluck' in request.query_params:
-            likes = Like.objects.filter(cluck=request.query_params['cluck'])
+            print("user is attempting to fetch likes by cluck")
+            likes = Like.objects.filter(cluck_id=request.query_params['cluck'])
             serializer = LikeSerializer(likes, many=True)
+            print(serializer.data)
             return Response(status=status.HTTP_200_OK, data=serializer.data)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
