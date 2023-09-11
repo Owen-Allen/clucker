@@ -3,21 +3,22 @@ import { useState } from 'react'
 
 import ProfileHeader from "@/components/profileHeader"
 import ProfileClucks from "@/components/profileClucks"
+import ProfileLikes from "@/components/profileLikes"
 
 export default function ProfileContent({user, profile}: any) {
 
 
   
   const [menu, setMenu ] = useState("clucks")
+  console.log('menu')
 
+  console.log(menu)
   return (
     <div className="flex flex-col gap-4">
       <ProfileHeader user={user} profile={profile} menu={menu} setMenu={setMenu}/>
       {menu == "clucks" && <ProfileClucks user={user} profile={profile}/>}
-      <div>
-
-
-      </div>
+      {menu == "likes" &&  <ProfileLikes user={user} profile={profile}/>}
+      {menu == "replies" &&  <div className="text-center mt-8 font-mono text-2xl"> Coming Soon! </div>}
     </div>
   )
 }
