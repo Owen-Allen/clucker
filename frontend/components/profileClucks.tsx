@@ -4,13 +4,16 @@ import React, { useState, useEffect } from 'react'
 import Cluck from '@/components/cluck'
 
 export default function ProfileClucks({ user, profile }: any) {
+    
     const [clucks, setClucks] = useState([])
 
     useEffect(() => {
         const getClucks = async () => {
             const response = await fetch(`http://127.0.0.1:9000/api/clucks_author/?author=${profile.id}`)
             const data = await response.json()
-            setClucks(data["clucks"])
+            if(response.status == 200){
+                setClucks(data["clucks"])
+            }
         }
         if (user) { getClucks() }
     }, [user])
