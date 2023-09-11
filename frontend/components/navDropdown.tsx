@@ -25,26 +25,29 @@ const NavDropdown = ({ user }: any) => {
           <DropdownMenuContent className="round-xl p-4 ml-2 border-black border-2">
             <DropdownMenuItem asChild>
                 <Link
-                    className="text-3xl font-mono tracking-wide                    "
                     href={`/user/${user.id}`}
+                    className="text-3xl font-mono tracking-wide"
                 >
-                    Profile
-                </Link>
+                    My Profile
+             </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator className="bg-slate-500 dark:bg-slate-500"/>
 
             <DropdownMenuItem asChild>
                 <Link
-                    className="text-3xl font-mono tracking-wide                    "
                     href={`/feed`}
+                    className="text-3xl font-mono tracking-wide"
+                    // BUG: for some reason text-3xl is not applying
+                    
                 >
-                    Feed
+                                Feed
+
                 </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator className="bg-slate-500 dark:bg-slate-500"/>
             <DropdownMenuItem>
             <button
-                    className="text-3xl font-mono tracking-wide"
+                    className="font-mono tracking-wide"
                     onClick={() => signOut()}
               >
                     Logout
