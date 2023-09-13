@@ -60,7 +60,6 @@ dist/
 downloads/ 
 eggs/ 
 .eggs/ 
-lib/ 
 lib64/ 
 parts/ 
 sdist/ 
@@ -139,3 +138,7 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
