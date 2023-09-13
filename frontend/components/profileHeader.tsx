@@ -24,7 +24,7 @@ export default function ProfileHeader({ user, profile, menu, setMenu }: any) {
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ user_id: user.id, following: profile.id })
 			}
-			const response = await fetch(`http://127.0.0.1:9000/api/follow_detail/`, requestOptions)
+			const response = await fetch(`${process.env.DB_HOST}/api/follow_detail/`, requestOptions)
 			const data = await response.json()
 			if (response.status == 201) {
 				setIsFollowing(updatedFollowing)
@@ -36,7 +36,7 @@ export default function ProfileHeader({ user, profile, menu, setMenu }: any) {
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ user_id: user.id, following: profile.id })
 			}
-			const response = await fetch(`http://127.0.0.1:9000/api/follow_detail/`, requestOptions)
+			const response = await fetch(`${process.env.DB_HOST}/api/follow_detail/`, requestOptions)
 			if (response.status == 204) {
 				setIsFollowing(updatedFollowing)
 			}
@@ -46,8 +46,7 @@ export default function ProfileHeader({ user, profile, menu, setMenu }: any) {
     useEffect(() => {
         // check if the user has previously like this cluck, and setLiked accordingly
         const getFollowing = async () => {
-            const response = await fetch(`http://127.0.0.1:9000/api/follow_detail/?user_id=${user.id}&following=${profile.id}`)
-            const data = await response.json()
+            const response = await fetch(`${process.env.DB_HOST}/api/follow_detail/?user_id=${user.id}&following=${profile.id}`)
             if (response.status === 200) {
                 setIsFollowing(true)
             }else{

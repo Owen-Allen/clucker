@@ -6,10 +6,9 @@ import Cluck from '@/components/cluck'
 export default function ProfileLikes({ user, profile }: any) {
     const [clucks, setClucks] = useState([])
 
-    console.log("profile likes")
     useEffect(() => {
         const getClucks = async () => {
-            const response = await fetch(`http://127.0.0.1:9000/api/like_detail/?user=${profile.id}`)
+            const response = await fetch(`${process.env.DB_HOST}/api/like_detail/?user=${profile.id}`)
             console.log(response)
 
             if(response.status == 200){

@@ -7,8 +7,6 @@ const inter = Inter({ subsets: ["latin"] });
 import Nav from "@/components/nav";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
-import GoogleSignInButton from '@/components/googleSignInButton'
-import { Children } from "react";
 
 export const metadata: Metadata = {
   title: "Clucker",
@@ -21,7 +19,6 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const session = await getServerSession(authOptions)
-
   return (
     <html lang="en">
       <body className={`${inter.className} bg-sky-400`}>

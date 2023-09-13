@@ -9,7 +9,7 @@ export default function ProfileClucks({ user, profile }: any) {
 
     useEffect(() => {
         const getClucks = async () => {
-            const response = await fetch(`http://127.0.0.1:9000/api/clucks_author/?author=${profile.id}`)
+            const response = await fetch(`${process.env.DB_HOST}/api/clucks_author/?author=${profile.id}`)
             const data = await response.json()
             if(response.status == 200){
                 setClucks(data["clucks"])

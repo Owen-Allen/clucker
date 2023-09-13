@@ -12,7 +12,7 @@ export default function FeedClucks({ user }: Props) {
 
     useEffect(() => {
         const getClucks = async () => {
-            const response = await fetch(`http://127.0.0.1:9000/api/feed/?id=${user.id}`)
+            const response = await fetch(`${process.env.DB_HOST}/api/feed/?id=${user.id}`)
             console.log(response)
             if(response.status === 200){
                 const data = await response.json()

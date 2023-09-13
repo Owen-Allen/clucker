@@ -22,7 +22,7 @@ export default function StatsDropdown({ cluck_id }: { cluck_id: number }) {
   useEffect(() => {
     const getLikeData = async () => {
       const response = await fetch(
-        `http://127.0.0.1:9000/api/like_detail/?cluck=${cluck_id}`
+        `${process.env.DB_HOST}/api/like_detail/?cluck=${cluck_id}`
       );
       if (response.status === 200) {
         const data = await response.json();

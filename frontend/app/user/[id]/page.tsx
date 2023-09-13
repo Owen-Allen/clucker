@@ -21,7 +21,7 @@ export default async function Page({
     redirect("/signin");
   }
 
-  const res = await fetch(`http://127.0.0.1:9000/api/user/${params.id}`, {
+  const res = await fetch(`${process.env.DB_HOST}/api/user/${params.id}`, {
     next: { revalidate: 100 },
   });
   const profile = await res.json();

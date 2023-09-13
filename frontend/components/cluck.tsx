@@ -35,7 +35,7 @@ export default function Cluck({ user_id, cluck_id, author, content, created_at, 
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ user: user_id, cluck: cluck_id })
 			}
-		const response = await fetch(`http://127.0.0.1:9000/api/like_detail/`, requestOptions)
+		const response = await fetch(`${process.env.DB_HOST}/api/like_detail/`, requestOptions)
 		const data = await response.json()
 		// console.log(response)
 		// console.log(data)
@@ -50,7 +50,7 @@ export default function Cluck({ user_id, cluck_id, author, content, created_at, 
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ user: user_id, cluck: cluck_id })
 		}
-		const response = await fetch(`http://127.0.0.1:9000/api/like_detail/`, requestOptions)
+		const response = await fetch(`${process.env.DB_HOST}/api/like_detail/`, requestOptions)
 		// console.log(response)
 
 		if (response.status == 204) {
@@ -62,7 +62,7 @@ export default function Cluck({ user_id, cluck_id, author, content, created_at, 
 	useEffect(() => {
 		// check if the user has previously like this cluck, and setLiked accordingly
 		const getLiked = async () => {
-			const response = await fetch(`http://127.0.0.1:9000/api/like_detail/?cluck=${cluck_id}&user=${user_id}`)
+			const response = await fetch(`${process.env.DB_HOST}/api/like_detail/?cluck=${cluck_id}&user=${user_id}`)
 			if (response.status == 200) {
 
 				setLiked(true)

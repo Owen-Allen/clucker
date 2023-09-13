@@ -9,6 +9,7 @@ export const authOptions = {
       }),
   ],
   callbacks: {
+
     async session({ session, token }) {
       // Return a cookie value as part of the session
       // This is read when `req.query.nextauth.includes("session") && req.method === "GET"`
@@ -17,16 +18,15 @@ export const authOptions = {
       // 1. if they are logged in with session.user.id, return session
       // 2. elif, check if they have an account registered with their email then assign the email and send them to feed
       // 3. elif, send them to sign up page
-      console.log('getting session')
-      console.log(session)
+      // console.log('getting session')
+      // console.log(session)
 
       if(session.user.id){
         return session
       }
-      const res = await fetch(`http://127.0.0.1:9000/api/userid/?email=${session.user.email}`)
+      const res = await fetch(`${process.env.DB_HOST}/api/userid/?email=${session.user.email}`)
       // console.log(res)
       const user = await res.json()
-
       // console.log(user)
 
       if (user?.id){ // they already have an account

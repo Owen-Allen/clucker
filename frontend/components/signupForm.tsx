@@ -49,7 +49,7 @@ export default function SignupForm(){
           body: JSON.stringify({ id: values.id, name: values.name, email: values.email
          })
         }
-        const response = await fetch(`http://127.0.0.1:9000/api/new_user/`, requestOptions)
+        const response = await fetch(`${process.env.DB_HOST}/api/new_user/`, requestOptions)
         console.log(response.status)
         const data = await response.json()
         console.log(data)

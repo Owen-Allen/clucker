@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/navigation"
+import { getToken } from "next-auth/jwt";
 
 import { Button } from "@/components/ui/button"
 import {
@@ -25,6 +26,7 @@ const formSchema = z.object({
 export default function CluckForm({ user }: any){
   const router = useRouter()
 
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,7 +46,7 @@ export default function CluckForm({ user }: any){
       body: JSON.stringify({ author: user.id, content: values.content })
     }
     // console.log(values)
-    const response = await fetch(`http://127.0.0.1:9000/api/cluck_detail/`, requestOptions)
+    const response = await fetch(`${process.env.DB_HOST}/api/cluck_detail/`, requestOptions)
     const data = await response.json()
     if(response.status === 201){
       router.push('/feed')
