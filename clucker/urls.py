@@ -27,6 +27,7 @@ router.register(r'like', views.LikeView, 'like')
 
 
 urlpatterns = [
+    path('', views.home, name='home'),
     path('admin/', admin.site.urls),
     path('coop/', include('coop.urls')),
     path('api/', include(router.urls)),

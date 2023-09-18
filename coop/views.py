@@ -28,6 +28,10 @@ class LikeView(viewsets.ModelViewSet):
     queryset = Like.objects.all()
 
 
+@api_view(['GET'])
+def home(request):
+    return Response(status=status.HTTP_200_OK, data="Hello Elastic Beanstalk!")
+
 
 @api_view(['POST'])
 def new_user(request):
@@ -144,8 +148,8 @@ def cluck_detail(request):
             print(likes)
             if likes.count() == 1:
                 likes.delete()
-                return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(status.status.HTTP_404_NOT_FOUND)
+                return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST', 'DELETE'])
 def follow_detail(request):
@@ -157,7 +161,7 @@ def follow_detail(request):
         if 'user_id' in request.query_params and 'following' in request.query_params:
             Follows = Follow.objects.filter(user_id=request.query_params['user_id'], following=request.query_params['following'])
             if Follows.count() == 0:
-                return Response(status=404, data=[])
+                return Response(status=status.HTTP_204_NO_CONTENT, data=[])
             serializer = FollowSerializer(Follows, many=True) # needs many = True, even though it is not possible to have duplicate Follows. Could use a get() instead of filter() but don't want a 404
         elif 'user_id' in request.query_params:
             Follows = Follow.objects.filter(user_id=request.query_params['user_id'])
