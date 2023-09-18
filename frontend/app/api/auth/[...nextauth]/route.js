@@ -19,15 +19,13 @@ export const authOptions = {
       // 2. elif, check if they have an account registered with their email then assign the email and send them to feed
       // 3. elif, send them to sign up page
       // console.log('getting session')
-      // console.log(session)
-
       if(session.user.id){
         return session
       }
       const res = await fetch(`${process.env.DB_HOST}/api/userid/?email=${session.user.email}`)
-      // console.log(res)
       const user = await res.json()
-      // console.log(user)
+
+      console.log(user)
 
       if (user?.id){ // they already have an account
         // console.log(user.id)
