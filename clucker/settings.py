@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-0u+%^m=j+7u1bq_bf++j@dd!8*v1_&u-14ie_n0d^31*&a=+bx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['api.clucker.club', 'clucker-env.eba-qrug9jj3.us-west-2.elasticbeanstalk.com', '172.31.31.42', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -122,6 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -129,5 +130,6 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_WHITELIST = [
-     'http://localhost:3000'
+     'http://localhost:3000',
+     'https://clucker.vercel.app'
 ]
