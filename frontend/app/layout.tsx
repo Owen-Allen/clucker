@@ -1,8 +1,5 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
 
 import Nav from "@/components/nav";
 import { getServerSession } from "next-auth";
@@ -21,7 +18,7 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions)
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-sky-400`}>
+      <body className={`bg-sky-400`}>
         {session && <Nav user={session.user}/>}
         {children}
         </body>
