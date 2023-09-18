@@ -16,7 +16,7 @@ interface Like {
   cluck: number;
 }
 
-export default function StatsDropdown({ cluck_id }: { cluck_id: number }) {
+export default function StatsDropdown({ liked, cluck_id }: { liked: boolean, cluck_id: number }) {
   const [likeData, setLikeData] = useState<Like[]>([]);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function StatsDropdown({ cluck_id }: { cluck_id: number }) {
     };
 
     getLikeData();
-  }, [cluck_id]);
+  }, [cluck_id, liked]);
 
   return (
     <DropdownMenu>

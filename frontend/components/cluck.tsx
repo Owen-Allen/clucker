@@ -76,7 +76,7 @@ export default function Cluck({ user_id, cluck_id, author, content, created_at, 
 			<CardHeader>
 				<CardTitle className="flex flex-row w-full">
 					<Link className="hover:underline" href={`/user/${author}`}>{author}</Link>
-					<div className="ml-auto"><StatsDropdown cluck_id={cluck_id} /></div></CardTitle>
+					<div className="ml-auto"><StatsDropdown liked={liked} cluck_id={cluck_id} /></div></CardTitle>
 				<CardDescription></CardDescription>
 			</CardHeader>
 			<CardContent >
