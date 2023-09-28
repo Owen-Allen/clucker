@@ -26,7 +26,7 @@ export default async function Page() {
           alt="Clucker Logo"
         />
 
-        <h2 className="font-mono text-xl">Clucker is currently down for "maintenance"</h2>
+        <h2 className="font-mono text-xl">Clucker is currently down for &ldquo;maintenance&rdquo;</h2>
         {/* <div className="py-4">
           <GoogleSignInButton />
         </div>
