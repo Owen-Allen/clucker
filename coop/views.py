@@ -6,6 +6,53 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import UserSerializer, FollowSerializer, CluckSerializer, ReplySerializer, LikeSerializer
 from .models import User, Follow, Cluck, Reply, Like
+import jwt
+from datetime import datetime
+
+def time_to_int(dateobj):
+    total = int(dateobj.strftime('%S'))
+    total += int(dateobj.strftime('%M')) * 60
+    total += int(dateobj.strftime('%H')) * 60 * 60
+    total += (int(dateobj.strftime('%j')) - 1) * 60 * 60 * 24
+    total += (int(dateobj.strftime('%Y')) - 1970) * 60 * 60 * 24 * 365
+    return total
+
+
+def user_exists_with_email(email):
+    try:
+        user = User.objects.get(email=email)
+        return True
+    except User.DoesNotExist:
+        return False
+
+
+def valid_request(request):
+    try:
+        print(f"valid_request {request}")
+        token = request.headers['Authorization'].split(' ')[1]
+        decoded_payload = jwt.decode(token, options={"verify_signature": False})
+        expiry = decoded_payload['exp']
+        email = decoded_payload['email']
+        if(not user_exists_with_email(email)): return False
+        if(int(expiry) < time_to_int(datetime.utcnow())): return False
+        return True
+    except Exception as e:
+        print(f'An error occured during valid_request')
+        print(e)
+        return False
+
+def get_token_email(token):
+    try:
+        decoded_payload = jwt.decode(token, options={"verify_signature": False})
+        print(decoded_payload)
+        expiry = decoded_payload['exp']
+        email = decoded_payload['email']
+        if(int(expiry) < time_to_int(datetime.utcnow())): return False
+        return email
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return False
+
 
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
@@ -62,9 +109,22 @@ def new_user(request):
 
     return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+
+
 @api_view(['GET'])
 def userid(request):
-    if('email' not in request.query_params or not request.query_params['email']): return Response(status=status.HTTP_400_BAD_REQUEST, id=None)
+    try:
+        token = request.headers["Authorization"].split(" ")[1]
+        email = get_token_email(token)
+        if(email != request.query_params['email']): return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+    except Exception as e:
+        print(f'ERROR: while checking token {e}')
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+
+    if('email' not in request.query_params or not request.query_params['email'] or email != request.query_params['email']): return Response(status=status.HTTP_400_BAD_REQUEST, id=None)
     email = request.query_params['email']
     users = User.objects.filter(email=email)
     if (users.count() == 0):
@@ -91,17 +151,17 @@ def like_detail(request):
                 return Response(status=200, data=serializer.data)
         elif 'user' in request.query_params:
             likes = Like.objects.filter(user=request.query_params['user'])
-            print(likes.values_list('cluck', flat=True))
+            # print(likes.values_list('cluck', flat=True))
             liked_clucks = Cluck.objects.filter(id__in=likes.values_list('cluck', flat=True)).order_by('-created_at')
-            print(liked_clucks)
+            # print(liked_clucks)
             serializer = CluckSerializer(liked_clucks, many=True)
 
             return Response(status=status.HTTP_200_OK, data=serializer.data)
         elif 'cluck' in request.query_params:
-            print("user is attempting to fetch likes by cluck")
+            print("attempting to fetch likes by cluck")
             likes = Like.objects.filter(cluck_id=request.query_params['cluck'])
             serializer = LikeSerializer(likes, many=True)
-            print(serializer.data)
+            # print(serializer.data)
             return Response(status=status.HTTP_200_OK, data=serializer.data)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -132,7 +192,7 @@ def like_detail(request):
 def cluck_detail(request):
     if request.method == "POST":
         print("POST")
-        print(request.data)
+        # print(request.data)
         serializer = CluckSerializer(data=request.data)
         if serializer.is_valid():
             print('serializer valid')
@@ -145,7 +205,6 @@ def cluck_detail(request):
         print(request.data)
         if 'user_id' in request.data and 'cluck' in request.data: 
             likes = Like.objects.filter(user=request.data['user'], cluck=request.data['cluck'])
-            print(likes)
             if likes.count() == 1:
                 likes.delete()
                 return Response(status=status.HTTP_200_OK)
@@ -193,6 +252,7 @@ def follow_detail(request):
 
 @api_view(['GET'])
 def feed(request):
+    if(not valid_request(request)): return Response(status=status.HTTP_401_UNAUTHORIZED, clucks=None)
     if('id' not in request.query_params or not request.query_params['id']): return Response(status=status.HTTP_400_BAD_REQUEST, clucks=None)
     id = request.query_params['id']
     
@@ -212,7 +272,7 @@ def feed(request):
 
     if(clucks.count() < 10):
         clucks = Cluck.objects.all().order_by('created_at').order_by("-created_at")[0:10]
-        print(clucks)
+        # print(clucks)
     else:
         clucks = clucks.order_by("-created_at")
 
