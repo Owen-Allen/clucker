@@ -10,10 +10,11 @@ import {
 import Link from 'next/link'
 
 import { useState, useEffect } from "react"
-import StatsDropdown from "./statsDropdown"
+import LikesDropdown from "@/components/likesDropdown"
+import EditCluckDropdown from "./editCluckDropdown"
 
 export interface Props {
-	user_id: number
+	user_id: string
 	cluck_id: number
 	author: string,
 	content: string,
@@ -24,8 +25,9 @@ export interface Props {
 
 export default function Cluck({ user_id, cluck_id, author, content, created_at, is_deleted }: Props) {
 	const date = new Date(created_at)
-	const date_readable = `${date.getHours() % 12}:${date.getMinutes().toString().padStart(2, '0')}${date.getHours() > 12 ? "pm" : "am"} ${date.toDateString().split(" ").slice(1).join(" ")}`
+	const date_readable = `${date.getHours() == 12 ? 12 : date.getHours() % 12}:${date.getMinutes().toString().padStart(2, '0')}${date.getHours() >= 12 ? "pm" : "am"} ${date.toDateString().split(" ").slice(1).join(" ")}`
 	const [liked, setLiked] = useState(false)
+	const isMyCluck = user_id == author
 
 	const likeHandler = async (e: any) => {
 		e.preventDefault()
@@ -51,8 +53,6 @@ export default function Cluck({ user_id, cluck_id, author, content, created_at, 
 			body: JSON.stringify({ user: user_id, cluck: cluck_id })
 		}
 		const response = await fetch(`${process.env.DB_HOST}/api/like_detail/`, requestOptions)
-		// console.log(response)
-
 		if (response.status == 204) {
 			setLiked(false)
 		}
@@ -64,7 +64,6 @@ export default function Cluck({ user_id, cluck_id, author, content, created_at, 
 		const getLiked = async () => {
 			const response = await fetch(`${process.env.DB_HOST}/api/like_detail/?cluck=${cluck_id}&user=${user_id}`)
 			if (response.status == 200) {
-
 				setLiked(true)
 			}
 		}
@@ -74,9 +73,13 @@ export default function Cluck({ user_id, cluck_id, author, content, created_at, 
 	return (
 		<Card className="border-black rounded-2xl border-2 border-b-4 border-r-4 shadow-xl">
 			<CardHeader>
-				<CardTitle className="flex flex-row w-full">
-					<Link className="hover:underline" href={`/user/${author}`}>{author}</Link>
-					<div className="ml-auto"><StatsDropdown liked={liked} cluck_id={cluck_id} /></div></CardTitle>
+				<CardTitle className="flex align-center w-full">
+					<Link className="hover:underline" href={`/user/${author}#top`}>{author}</Link>
+					<div className="flex flex-row ml-auto gap-1">
+						{/* {isMyCluck && <div className="-mt-2"><EditCluckDropdown cluck_id={cluck_id}/></div>} */}
+						<LikesDropdown liked={liked} cluck_id={cluck_id} />
+					</div>
+				</CardTitle>
 				<CardDescription></CardDescription>
 			</CardHeader>
 			<CardContent >
