@@ -1,0 +1,275 @@
+[
+    {
+        "id": 22,
+        "author": "bird_man",
+        "content": "I tried baking some corn tonight. Let's just say my coop now looks like a cornfield after a poultry party, and the only thing seasoned about it is my feathers. \ud83c\udf3d\ud83c\udf57",
+        "created_at": "2023-08-17T18:55:18.694476-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 23,
+        "author": "PeckishPal",
+        "content": "Today's workout: lifting my hopes for a productive day, followed by the eggstreme weight of my cluckcrastination. \ud83d\udcaa\ud83e\udd5a\ud83d\udcda",
+        "created_at": "2023-08-17T18:56:46.809965-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 24,
+        "author": "disgruntled_pigeon",
+        "content": "Why do humans rush around looking important? I just flap my wings, coo, and get the same reaction. Maybe I should start wearing a tiny suit. Pigeon power!",
+        "created_at": "2023-08-17T19:01:13.427283-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 26,
+        "author": "owen",
+        "content": "Hello Clucker!",
+        "created_at": "2023-09-08T17:11:29.704611-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 29,
+        "author": "owen",
+        "content": "Testing new backend url setup",
+        "created_at": "2023-09-13T11:40:32.640345-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 30,
+        "author": "owen",
+        "content": "testing from mobile",
+        "created_at": "2023-09-18T13:20:29.111084-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 31,
+        "author": "cluckkent",
+        "content": "dreams do come true",
+        "created_at": "2023-09-18T13:28:49.837820-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 32,
+        "author": "cluckkent",
+        "content": "Testing testing",
+        "created_at": "2023-09-18T16:30:27.434469-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 33,
+        "author": "cluckkent",
+        "content": "I love my boyfriend owen",
+        "created_at": "2023-09-18T16:30:40.944322-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 34,
+        "author": "cluckkent",
+        "content": "I love girlfriend taissa",
+        "created_at": "2023-09-18T16:30:48.993974-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 35,
+        "author": "eating__poo",
+        "content": "I\u2019m feeling the crushing weight of adulthood",
+        "created_at": "2023-09-18T17:55:47.945595-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 36,
+        "author": "cluck_norris",
+        "content": "just joined, can't wait to spread misinformation!",
+        "created_at": "2023-09-18T18:37:08.139084-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 37,
+        "author": "cluckkent",
+        "content": "ocean is ocean when there is shark in ocean if no shark no ocean",
+        "created_at": "2023-09-18T20:03:52.225680-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 41,
+        "author": "cluckkent",
+        "content": "he/him-ing the exterminator company",
+        "created_at": "2023-09-19T15:24:03.161272-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 42,
+        "author": "cluckkent",
+        "content": "ableism is kinda spelt in an ableist way bc when I\u2019m sounding it out the L doesn\u2019t go there",
+        "created_at": "2023-09-19T15:29:41.871481-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 43,
+        "author": "cluck_norris",
+        "content": "Owen told me got draino for the house, only to then bring back a basketball and start shooting threes in our bathtub",
+        "created_at": "2023-09-19T16:38:36.230267-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 44,
+        "author": "cluckkent",
+        "content": "*talking about the bus*\n\nyeah, sometimes I still text her\u2026 when I need a pick me up",
+        "created_at": "2023-09-19T18:38:03.325954-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 45,
+        "author": "cluckkent",
+        "content": "is it really true love if they haven\u2019t bought you an infinity necklace from Claire\u2019s",
+        "created_at": "2023-09-19T21:28:17.963389-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 47,
+        "author": "cluckkent",
+        "content": "what if octranspo cared about my opinion",
+        "created_at": "2023-09-20T14:52:00.865892-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 48,
+        "author": "cluckkent",
+        "content": "it\u2019s giving gods plan",
+        "created_at": "2023-09-21T22:35:59.834047-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 49,
+        "author": "cluckkent",
+        "content": "it\u2019s giving gods plan",
+        "created_at": "2023-09-21T22:36:00.989121-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 50,
+        "author": "cluckkent",
+        "content": "putting cafe latte hearts on the cops latte NOT BC IM A FAN OF THEIR PROFESSION but bc I need the practice",
+        "created_at": "2023-09-22T16:44:58.880573-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 53,
+        "author": "cluckkent",
+        "content": "adding intense Reverb is how I music production",
+        "created_at": "2023-09-23T12:50:53.358895-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 54,
+        "author": "cluck_norris",
+        "content": "Owen has officially TURNED HIS SWAG ON",
+        "created_at": "2023-09-24T20:35:54.363050-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 56,
+        "author": "cluckkent",
+        "content": "when lady gaga said \u201cI live for the applause\u201d I felt that",
+        "created_at": "2023-09-25T10:50:19.941135-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 57,
+        "author": "bcturner",
+        "content": "Cluck you weener",
+        "created_at": "2023-09-25T21:12:41.343908-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 58,
+        "author": "owen",
+        "content": "anyone ever seen the type of porn where it\u2019s just dudes? not for me but i can understand the appeal.",
+        "created_at": "2023-09-25T22:09:36.666483-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 59,
+        "author": "owen",
+        "content": "what the cluck is up",
+        "created_at": "2023-09-26T22:43:57.491502-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 60,
+        "author": "markcluckerberg",
+        "content": "owen keeps asking me if i wanna cluck\u2026 how to i tell him i\u2019m in a happy relationship",
+        "created_at": "2023-09-26T22:45:59.725533-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 61,
+        "author": "markcluckerberg",
+        "content": "clucker will rid this world of misinformation",
+        "created_at": "2023-09-26T22:53:35.518926-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 62,
+        "author": "markcluckerberg",
+        "content": "owen i made a typo in my last cluck can u delete it for me",
+        "created_at": "2023-09-26T22:55:43.695104-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 63,
+        "author": "cluckkent",
+        "content": "stop cluck roll",
+        "created_at": "2023-09-26T22:58:15.695761-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 64,
+        "author": "markcluckerberg",
+        "content": "like my cluck for a tbh",
+        "created_at": "2023-09-26T23:09:51.061589-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 65,
+        "author": "cluckkent",
+        "content": "philosophers are actually stupid and don\u2019t know how to speak eloquently",
+        "created_at": "2023-09-27T11:02:10.705514-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 66,
+        "author": "cluckkent",
+        "content": "I eat my food too fast",
+        "created_at": "2023-09-27T18:35:20.328351-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 67,
+        "author": "cluckkent",
+        "content": "I hope to win the equity award this year",
+        "created_at": "2023-09-27T20:56:12.215118-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 68,
+        "author": "cluckkent",
+        "content": "I meant to say emmy",
+        "created_at": "2023-09-27T20:56:21.446558-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 72,
+        "author": "cluckkent",
+        "content": "the thing abt my friendgroup is none of us know the sport trivia questions",
+        "created_at": "2023-09-27T21:59:03.999033-04:00",
+        "is_deleted": false
+    },
+    {
+        "id": 73,
+        "author": "cluckkent",
+        "content": "I think therefore I am therefore I cum therefore I get bitches",
+        "created_at": "2023-09-27T22:11:20.933670-04:00",
+        "is_deleted": false
+    }
+]

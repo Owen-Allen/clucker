@@ -1,0 +1,82 @@
+[
+    {
+        "id": 66,
+        "user_id": "owen",
+        "following": "PeckishPal"
+    },
+    {
+        "id": 72,
+        "user_id": "owen",
+        "following": "disgruntled_pigeon"
+    },
+    {
+        "id": 73,
+        "user_id": "bird_fan",
+        "following": "owen"
+    },
+    {
+        "id": 74,
+        "user_id": "bird_fan",
+        "following": "cluckkent"
+    },
+    {
+        "id": 75,
+        "user_id": "owen",
+        "following": "cluckkent"
+    },
+    {
+        "id": 76,
+        "user_id": "eating__poo",
+        "following": "owen"
+    },
+    {
+        "id": 77,
+        "user_id": "owen",
+        "following": "cluck_norris"
+    },
+    {
+        "id": 80,
+        "user_id": "cluck_norris",
+        "following": "eating__poo"
+    },
+    {
+        "id": 81,
+        "user_id": "cluck_norris",
+        "following": "cluckkent"
+    },
+    {
+        "id": 82,
+        "user_id": "cluckkent",
+        "following": "eating__poo"
+    },
+    {
+        "id": 83,
+        "user_id": "owen",
+        "following": "markcluckerberg"
+    },
+    {
+        "id": 84,
+        "user_id": "markcluckerberg",
+        "following": "owen"
+    },
+    {
+        "id": 85,
+        "user_id": "markcluckerberg",
+        "following": "bcturner"
+    },
+    {
+        "id": 86,
+        "user_id": "markcluckerberg",
+        "following": "cluck_norris"
+    },
+    {
+        "id": 87,
+        "user_id": "cluckkent",
+        "following": "markcluckerberg"
+    },
+    {
+        "id": 88,
+        "user_id": "markcluckerberg",
+        "following": "cluckkent"
+    }
+]

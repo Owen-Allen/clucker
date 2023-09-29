@@ -9,14 +9,21 @@ import Image from 'next/image'
 export default async function Page() {
 
   const session = await getServerSession(authOptions)
+  const user = session?.user
 
-  if(session){
+  if(user?.id){
+    // already has signed up and is logged in
     redirect('/feed')
+  }
+  
+  if(!user?.email){
+    // they navigated to the signup page without first logging into a google account
+    redirect('/signin')
   }
 
   return (
-    <div className="grid h-screen place-items-center">
-      <div className="bg-white border-black rounded-2xl border-2 border-b-4 border-r-4 shadow-xl p-8 sm:px-16">
+    <div className="flex h-screen">
+      <div className="m-auto w-5/6 sm:w-1/2 md:w-1/3 bg-white border-black rounded-2xl border-2 border-b-4 border-r-4 shadow-xl p-8 sm:px-16">
         <h1 className="font-mono text-xl font-semibold text-center p-4">
           Create an Account
         </h1>
@@ -27,7 +34,7 @@ export default async function Page() {
           height='64'
           alt="Clucker Logo"
         />
-        <SignupForm />
+        <SignupForm email={user.email} />
       </div>
     </div>
   );

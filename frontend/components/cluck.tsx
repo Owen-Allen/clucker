@@ -11,7 +11,6 @@ import Link from 'next/link'
 
 import { useState, useEffect } from "react"
 import LikesDropdown from "@/components/likesDropdown"
-import EditCluckDropdown from "./editCluckDropdown"
 
 export interface Props {
 	user_id: string

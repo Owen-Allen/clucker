@@ -6,7 +6,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import UserSerializer, FollowSerializer, CluckSerializer, ReplySerializer, LikeSerializer
 from .models import User, Follow, Cluck, Reply, Like
-import jwt
 from datetime import datetime
 
 def time_to_int(dateobj):

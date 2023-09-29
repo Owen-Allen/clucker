@@ -1,0 +1,246 @@
+[
+    {
+        "id": "bird_man",
+        "name": "man, bird",
+        "about": "",
+        "followers": [],
+        "following": [],
+        "clucks": [
+            22
+        ],
+        "likes": [],
+        "email": null
+    },
+    {
+        "id": "PeckishPal",
+        "name": "Peckish Pal",
+        "about": "",
+        "followers": [
+            66
+        ],
+        "following": [],
+        "clucks": [
+            23
+        ],
+        "likes": [
+            155,
+            156
+        ],
+        "email": null
+    },
+    {
+        "id": "disgruntled_pigeon",
+        "name": "disgruntled pigeon",
+        "about": "",
+        "followers": [
+            72
+        ],
+        "following": [],
+        "clucks": [
+            24
+        ],
+        "likes": [],
+        "email": null
+    },
+    {
+        "id": "owen",
+        "name": "o'dawg",
+        "about": "",
+        "followers": [
+            73,
+            76,
+            84
+        ],
+        "following": [
+            66,
+            77,
+            75,
+            72,
+            83
+        ],
+        "clucks": [
+            26,
+            29,
+            30,
+            58,
+            59
+        ],
+        "likes": [
+            163,
+            146,
+            162,
+            168,
+            172,
+            176,
+            181,
+            190,
+            189,
+            188,
+            187,
+            199,
+            211,
+            212
+        ],
+        "email": "owenallen.2000@gmail.com"
+    },
+    {
+        "id": "bird_fan",
+        "name": "mr bird",
+        "about": "",
+        "followers": [],
+        "following": [
+            74,
+            73
+        ],
+        "clucks": [],
+        "likes": [
+            165,
+            164,
+            167
+        ],
+        "email": "phatdogband@gmail.com"
+    },
+    {
+        "id": "cluckkent",
+        "name": "neen",
+        "about": "hard working\ud83d\ude24 | approachable\u270b | multitasking\ud83e\udd39",
+        "followers": [
+            74,
+            75,
+            81,
+            88
+        ],
+        "following": [
+            82,
+            87
+        ],
+        "clucks": [
+            31,
+            32,
+            33,
+            34,
+            37,
+            41,
+            42,
+            44,
+            45,
+            47,
+            48,
+            49,
+            50,
+            53,
+            56,
+            63,
+            65,
+            66,
+            67,
+            68,
+            72,
+            73
+        ],
+        "likes": [
+            171,
+            170,
+            178,
+            169,
+            177,
+            182,
+            186,
+            205,
+            208,
+            209,
+            210
+        ],
+        "email": "myburnertoast@gmail.com"
+    },
+    {
+        "id": "eating__poo",
+        "name": "Sean",
+        "about": "",
+        "followers": [
+            80,
+            82
+        ],
+        "following": [
+            76
+        ],
+        "clucks": [
+            35
+        ],
+        "likes": [],
+        "email": "slundy9188@gmail.com"
+    },
+    {
+        "id": "cluck_norris",
+        "name": "Flynnigan",
+        "about": "",
+        "followers": [
+            77,
+            86
+        ],
+        "following": [
+            81,
+            80
+        ],
+        "clucks": [
+            36,
+            43,
+            54
+        ],
+        "likes": [
+            173,
+            174,
+            175,
+            185,
+            194,
+            195,
+            197,
+            200
+        ],
+        "email": "flynny.graham@gmail.com"
+    },
+    {
+        "id": "bcturner",
+        "name": "Brandon Turner",
+        "about": "",
+        "followers": [
+            85
+        ],
+        "following": [],
+        "clucks": [
+            57
+        ],
+        "likes": [],
+        "email": "bcturner@gmail.com"
+    },
+    {
+        "id": "markcluckerberg",
+        "name": "Xad Grant Cardoso",
+        "about": "",
+        "followers": [
+            83,
+            87
+        ],
+        "following": [
+            85,
+            86,
+            88,
+            84
+        ],
+        "clucks": [
+            60,
+            61,
+            62,
+            64
+        ],
+        "likes": [
+            204,
+            203,
+            202,
+            207,
+            206,
+            201
+        ],
+        "email": "cardosograntd@gmail.com"
+    }
+]
