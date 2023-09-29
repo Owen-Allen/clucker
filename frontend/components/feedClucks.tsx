@@ -1,19 +1,25 @@
 "use client"
 
+import { redirect } from "next/navigation";
+
 import React, { useState, useEffect } from 'react'
 import Cluck from '@/components/cluck'
 
 interface Props {
-    user: any,
+    session: any,
 }
 
-export default function FeedClucks({ user }: Props) {
+export default function FeedClucks({ session }: Props) {
     const [clucks, setClucks] = useState([])
+    const user = session.user
+
 
     useEffect(() => {
         const getClucks = async () => {
-            const response = await fetch(`${process.env.DB_HOST}/api/feed/?id=${user.id}`)
-            console.log(response)
+            const headers = {
+                Authorization: `Bearer ${session.id_token}`,
+              }        
+            const response = await fetch(`${process.env.DB_HOST}/api/feed/?id=${user.id}`, {method: "GET", headers: headers})
             if(response.status === 200){
                 const data = await response.json()
                 // console.log(data)
@@ -21,8 +27,7 @@ export default function FeedClucks({ user }: Props) {
             }
         }
         if (user) { getClucks() }
-    }, [user])
-
+    }, [user, session.id_token])
 
     return (
         <div className="w-full flex flex-col gap-4">

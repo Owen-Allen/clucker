@@ -3,11 +3,15 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useForm } from "react-hook-form"
-import { useRouter } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { signIn } from "next-auth/react"
+import { redirect } from 'next/navigation'
+
+// import { revalidatePath } from "next/cache"
+import { useRouter } from "next/navigation"; // **updated**
+import { useSession } from "next-auth/react"
+
 
 import {
   Form,
@@ -21,56 +25,73 @@ import {
 
  
 const formSchema = z.object({
-    id: z.string().min(1).max(50).refine((val)=> !val.includes('!') && !val.includes('*') && !val.includes("'") && !val.includes('(') && !val.includes(')') && !val.includes(';') && !val.includes(':') && !val.includes('@') && !val.includes('&') && !val.includes('=') && !val.includes('+') && !val.includes('$') && !val.includes(',') && !val.includes('/') && !val.includes('?') && !val.includes('%') && !val.includes('#') && !val.includes('[') && !val.includes(']'), {message: "Username cannot contain the following characters !*'();:@&=+$,/?%#[]"} ),
-    name: z.string().max(50),
-  email: z.string().email().endsWith('@gmail.com', { message: "sadly, only gmail is supported at the moment" }),
-})
+    id: z.string().min(1).max(50).refine((val)=> !val.includes('!') && !val.includes('*') && !val.includes("'") && !val.includes('(') && !val.includes(')') && !val.includes(';') && !val.includes(':') && !val.includes('@') && !val.includes('&') && !val.includes('=') && !val.includes('+') && !val.includes('$') && !val.includes(',') && !val.includes('/') && !val.includes('?') && !val.includes('%') && !val.includes('#') && !val.includes('[') && !val.includes(']'), {message: "Username cannot contain the following characters !*'();:@&=+$,/?%#[]"} )
+                                .refine(async (id) =>{
+                                  const requestOptions = {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ 'id': id })
+                                  }
+                                  const res = await fetch(`${process.env.DB_HOST}/api/id_available/`, requestOptions)
+                                  const data = await res.json()
+                                  if(res.status == 200){
+                                    return data.id_available
+                                  }
+                                  return true
+                                }, {message: "An account with this username already exists"})   , 
+    name: z.string().max(50)
+  })
 
-export default function SignupForm(){
+
+export default function SignupForm({email}: {email: string}){
   const router = useRouter()
+  const { update } = useSession()
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    
+    defaultValues:{
+      id: "",
+      name: "",
+    }
   })
 
     // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof formSchema>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        console.log(values)
-    
+        console.log("IN SUBMIT")
         const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: values.id, name: values.name, email: values.email
+          body: JSON.stringify({ id: values.id, name: values.name, email: email
          })
         }
         const response = await fetch(`${process.env.DB_HOST}/api/new_user/`, requestOptions)
-        console.log(response.status)
         const data = await response.json()
-        console.log(data)
+        console.log(response)
         if(response.status === 201){
-            // now that the user is created we need to log them in using google auth
-            await signIn("google", { callbackUrl: '/feed' })
+            // Using redirect causes error: Uncaught (in promise) Error: NEXT_REDIRECT
+            console.log('calling update')
+            update({id: values.id})
+            router.replace(`/feed`)
         }
       }
 
 
   return (
         <Form  {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="">
+        <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
             control={form.control}
             name="id"
             render={({ field }) => (
-                <FormItem className="">
+                <FormItem>
                 <FormLabel>Create a username</FormLabel>
                 <FormControl> 
                     <Input placeholder="dodo_bird64" {...field}/>
                 </FormControl>
-                <FormMessage />
+                <FormMessage/>
                 <FormDescription />
             </FormItem>
             )}
@@ -85,21 +106,7 @@ export default function SignupForm(){
                     <Input placeholder="Tim Robinson" {...field}/>
                 </FormControl>
                 <FormDescription />
-                <FormMessage />
-            </FormItem>
-            )}
-        />
-        <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-                <FormItem>
-                <FormLabel>Enter your gmail</FormLabel>
-                <FormControl>
-                    <Input placeholder="timrobinson@gmail.com" {...field}/>
-                </FormControl>
-                <FormDescription />
-                <FormMessage />
+                <FormMessage className="grow-0" />
             </FormItem>
             )}
         />
