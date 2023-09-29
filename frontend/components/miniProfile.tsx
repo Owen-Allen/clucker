@@ -63,14 +63,13 @@ export default function MiniProfile({user_id, profile_id, profile_name}: MiniPro
     }, [user_id, profile_id, isMyProfile])
 
 
-
   return (
         <div className="flex items-center justify-between space-x-4">
-              <div>
-                 <Link href={`/user/${profile_id}`} className="text-base font-medium leading-none hover:underline">{profile_id}</Link>
-                 <p className="text-sm text-slate-500 text-muted-foreground">{profile_name}</p>
-              </div>
-              {showButton && <FollowButton isFollowing={isFollowing} followHandler={followHandler}/>} {/*!isMyProfile is not longer needed, since showButton can only be set to true if !isMyProfile*/}
+              <Link className="grow" href={`/user/${profile_id}`}>
+                 <p className="truncate w-32 sm:w-3/4 text-base font-medium hover:underline">{profile_id}</p>
+                 <p className="truncate w-32 sm:w-3/4 text-sm text-slate-500">{profile_name} </p>
+              </Link>
+              {showButton && <FollowButton isFollowing={isFollowing} followHandler={followHandler}/>}
         </div>
  )
 }
