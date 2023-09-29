@@ -9,7 +9,7 @@ import {
   } from "@/components/ui/dropdown-menu"
 import { signOut } from 'next-auth/react';
 
-const NavDropdown = ({ user }: any) => {
+const NavDropdown = ({ id }: {id: string}) => {
 
     {/* asChild necessary to solve this bug https://github.com/radix-ui/primitives/issues/1105 */}
     
@@ -23,10 +23,19 @@ const NavDropdown = ({ user }: any) => {
            </div>
             </DropdownMenuTrigger>
           <DropdownMenuContent className="round-xl p-4 ml-2 border-black border-2">
+          <DropdownMenuItem asChild>
+                <Link
+                    href={`/search`}
+                    className="text-xl font-mono tracking-wide"
+                >
+                    Search
+             </Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator className="bg-slate-500 dark:bg-slate-500"/>
             <DropdownMenuItem asChild>
                 <Link
-                    href={`/user/${user.id}`}
-                    className="text-3xl font-mono tracking-wide"
+                    href={`/user/${id}`}
+                    className="text-xl font-mono tracking-wide"
                 >
                     My Profile
              </Link>
@@ -36,7 +45,7 @@ const NavDropdown = ({ user }: any) => {
             <DropdownMenuItem asChild>
                 <Link
                     href={`/feed`}
-                    className="text-3xl font-mono tracking-wide"
+                    className="text-xl font-mono tracking-wide"
                     // BUG: for some reason text-3xl is not applying
                     
                 >
@@ -47,7 +56,7 @@ const NavDropdown = ({ user }: any) => {
             <DropdownMenuSeparator className="bg-slate-500 dark:bg-slate-500"/>
             <DropdownMenuItem>
             <button
-                    className="font-mono tracking-wide"
+                    className="text-xl font-mono tracking-wide"
                     onClick={() => signOut()}
               >
                     Logout
