@@ -1,61 +1,108 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.decorators import api_view
-from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import UserSerializer, FollowSerializer, CluckSerializer, ReplySerializer, LikeSerializer
+from .serializers import AdminUserSerializer, UserSerializer, FollowSerializer, CluckSerializer, ReplySerializer, LikeSerializer
 from .models import User, Follow, Cluck, Reply, Like
-from datetime import datetime
 
-def time_to_int(dateobj):
-    total = int(dateobj.strftime('%S'))
-    total += int(dateobj.strftime('%M')) * 60
-    total += int(dateobj.strftime('%H')) * 60 * 60
-    total += (int(dateobj.strftime('%j')) - 1) * 60 * 60 * 24
-    total += (int(dateobj.strftime('%Y')) - 1970) * 60 * 60 * 24 * 365
-    return total
+from rest_framework.decorators import api_view
 
+from google.oauth2 import id_token
+from google.auth.transport import requests
 
-def user_exists_with_email(email):
+request = requests.Request()
+
+def is_admin(token):
     try:
-        user = User.objects.get(email=email)
-        return True
-    except User.DoesNotExist:
+        id_info = id_token.verify_oauth2_token(token, request, '120353689511-7ugn38knq9mpkvjuo8e2hi1irjr8j1ip.apps.googleusercontent.com')
+        if(id_info['email'] == 'owenallen.2000@gmail.com'):
+            return True
+        return False
+    except Exception as e:
+        print(f"Error in verify_token: {e}")
         return False
 
-
-def valid_request(request):
+def verify_token(token):
+    # return True
     try:
-        print(f"valid_request {request}")
+        id_info = id_token.verify_oauth2_token(token, request, '120353689511-7ugn38knq9mpkvjuo8e2hi1irjr8j1ip.apps.googleusercontent.com')
+        # print(id_info)
+        return True
+    except Exception as e:
+        print(f"Error in verify_token: {e}")
+        return False
+
+def get_token(request):
+    try:
         token = request.headers['Authorization'].split(' ')[1]
-        decoded_payload = jwt.decode(token, options={"verify_signature": False})
-        expiry = decoded_payload['exp']
-        email = decoded_payload['email']
-        if(not user_exists_with_email(email)): return False
-        if(int(expiry) < time_to_int(datetime.utcnow())): return False
-        return True
+        return token
     except Exception as e:
-        print(f'An error occured during valid_request')
-        print(e)
-        return False
-
-def get_token_email(token):
+        return None
+    
+def valid_request(request):
+    # return True
     try:
-        decoded_payload = jwt.decode(token, options={"verify_signature": False})
-        print(decoded_payload)
-        expiry = decoded_payload['exp']
-        email = decoded_payload['email']
-        if(int(expiry) < time_to_int(datetime.utcnow())): return False
-        return email
+        print('validating request...')
+        token = get_token(request)
+        return verify_token(token)
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print(f'error while validating request: {e}')
         return False
 
+def get_email(token):
+    try:
+        id_info = id_token.verify_oauth2_token(token, request, '120353689511-7ugn38knq9mpkvjuo8e2hi1irjr8j1ip.apps.googleusercontent.com')
+        return id_info["email"]
+    except Exception as e:
+        print(f"Error in get_email: {e}")
+
+@api_view(['POST'])
+def email_available(request):
+    data = request.data
+    email = data.get('email')
+    if email:
+        email_available = not User.objects.filter(email=email).exists()
+    else:
+        return Response({'error': 'Please provide email.'}, status=status.HTTP_400_BAD_REQUEST)
+    data = {'email_available': email_available}
+    return Response(data=data, status=status.HTTP_200_OK)
+    
+@api_view(['POST'])
+def id_available(request):
+    data = request.data
+    id = data.get('id')
+    if id:
+        id_available = not User.objects.filter(id=id).exists()
+    else:
+        return Response({'error': 'Please provide id.'}, status=status.HTTP_400_BAD_REQUEST)
+    data = {'id_available': id_available}
+    return Response(data=data, status=status.HTTP_200_OK)
+    
 
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        # Retrieve all users from the database
+        if(not valid_request(request)): return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+        users = User.objects.all()
+        if(is_admin(get_token(request))):
+            serializer = AdminUserSerializer(users, many=True)
+
+        else:
+            serializer = UserSerializer(users, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def retrieve(self, request, pk=None, *args, **kwargs):
+        print('in retrieve')
+        if(not valid_request(request)): return Response(status=status.HTTP_401_UNAUTHORIZED)
+        queryset = User.objects.all()
+        user = get_object_or_404(queryset, pk=pk)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
 
 class FollowView(viewsets.ModelViewSet):
     serializer_class = FollowSerializer
@@ -94,40 +141,25 @@ def new_user(request):
         return Response({'message': 'An account with that id already exists'}, status=status.HTTP_400_BAD_REQUEST)
     
     new_user = request.data
-    new_user["about"] = ''
     new_user["followers"] = []
     new_user["following"] = []
     new_user["clucks"] = []
     new_user["likes"] = []
-    serializer = UserSerializer(data=new_user)
+    serializer = AdminUserSerializer(data=new_user) # AdminSerializer required to set email attribute
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    
     print(serializer.errors)
-
     return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
 
 
 @api_view(['GET'])
 def userid(request):
-    try:
-        token = request.headers["Authorization"].split(" ")[1]
-        email = get_token_email(token)
-        if(email != request.query_params['email']): return Response(status=status.HTTP_401_UNAUTHORIZED)
-
-    except Exception as e:
-        print(f'ERROR: while checking token {e}')
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
-
-
-    if('email' not in request.query_params or not request.query_params['email'] or email != request.query_params['email']): return Response(status=status.HTTP_400_BAD_REQUEST, id=None)
+    if('email' not in request.query_params or not request.query_params['email']): return Response(status=status.HTTP_400_BAD_REQUEST, id=None)
     email = request.query_params['email']
     users = User.objects.filter(email=email)
     if (users.count() == 0):
-        return Response({'id':None}, status=status.HTTP_204_BAD_REQUEST, )
+        return Response({'id':None}, status=status.HTTP_204_NO_CONTENT, )
     if (users.count() > 1):
         print("multiple users with same email?")
     user = users[0]
@@ -138,8 +170,6 @@ def userid(request):
 def like_detail(request):
     if request.method == 'GET':
         # fizz buzz
-        print("GET like_detail")
-        print(request.query_params)
         serializer = None
         if 'user' in request.query_params and 'cluck' in request.query_params:
             likes = Like.objects.filter(user=request.query_params['user'], cluck=request.query_params['cluck'])
@@ -157,7 +187,6 @@ def like_detail(request):
 
             return Response(status=status.HTTP_200_OK, data=serializer.data)
         elif 'cluck' in request.query_params:
-            print("attempting to fetch likes by cluck")
             likes = Like.objects.filter(cluck_id=request.query_params['cluck'])
             serializer = LikeSerializer(likes, many=True)
             # print(serializer.data)
@@ -167,8 +196,6 @@ def like_detail(request):
 
 
     elif request.method == "POST":
-        print("POST")
-        print(request.data)
         serializer = LikeSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -177,10 +204,8 @@ def like_detail(request):
 
     
     elif request.method == "DELETE":
-        print(request.data)
         if 'user' in request.data and 'cluck' in request.data:
             likes = Like.objects.filter(user=request.data['user'], cluck=request.data['cluck'])
-            print(likes)
             if likes.count() == 1:
                 likes.delete()
                 return Response(status=status.HTTP_204_NO_CONTENT)
@@ -189,6 +214,7 @@ def like_detail(request):
 
 @api_view(['POST', 'DELETE'])
 def cluck_detail(request):
+    # if(not valid_request(request)): return Response(status=status.HTTP_401_UNAUTHORIZED)
     if request.method == "POST":
         print("POST")
         # print(request.data)
@@ -220,7 +246,7 @@ def follow_detail(request):
             Follows = Follow.objects.filter(user_id=request.query_params['user_id'], following=request.query_params['following'])
             if Follows.count() == 0:
                 return Response(status=status.HTTP_204_NO_CONTENT, data=[])
-            serializer = FollowSerializer(Follows, many=True) # needs many = True, even though it is not possible to have duplicate Follows. Could use a get() instead of filter() but don't want a 404
+            serializer = FollowSerializer(Follows, many=True) # needs many = True, even though it is not possible to have duplicate Follows. Could use a get() instead of filter()
         elif 'user_id' in request.query_params:
             Follows = Follow.objects.filter(user_id=request.query_params['user_id'])
             serializer = FollowSerializer(Follows, many=True)
@@ -251,8 +277,9 @@ def follow_detail(request):
 
 @api_view(['GET'])
 def feed(request):
-    if(not valid_request(request)): return Response(status=status.HTTP_401_UNAUTHORIZED, clucks=None)
-    if('id' not in request.query_params or not request.query_params['id']): return Response(status=status.HTTP_400_BAD_REQUEST, clucks=None)
+    if(not valid_request(request)): return Response({'clucks':None}, status=status.HTTP_400_BAD_REQUEST)
+
+    if('id' not in request.query_params or not request.query_params['id']): return Response({'clucks':None}, status=status.HTTP_400_BAD_REQUEST)
     id = request.query_params['id']
     
     # Constructing a feed
@@ -270,8 +297,7 @@ def feed(request):
 
 
     if(clucks.count() < 10):
-        clucks = Cluck.objects.all().order_by('created_at').order_by("-created_at")[0:10]
-        # print(clucks)
+        clucks = Cluck.objects.all().order_by('created_at').order_by("-created_at")
     else:
         clucks = clucks.order_by("-created_at")
 

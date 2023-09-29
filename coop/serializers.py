@@ -2,10 +2,18 @@ from rest_framework import serializers
 from .models import User, Follow, Cluck, Reply, Like
 
 
+class AdminUserSerializer(serializers.ModelSerializer):    
+    class Meta:
+        model = User
+        fields = '__all__'
+
+
 class UserSerializer(serializers.ModelSerializer):    
     class Meta:
         model = User
-        fields = ('id', 'name', 'about', 'followers', 'following', 'clucks', 'likes', 'email')
+        fields = ('id', 'name', 'about', 'followers', 'following', 'clucks', 'likes') # no email
+        read_only_fields = ['id', 'followers', 'following', 'clucks', 'likes']
+
 
 class FollowSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 from django.db import models
 
 # Create your models here.
@@ -8,7 +8,7 @@ class User(models.Model):
     about = models.CharField(max_length=200, default="", blank=True)
     email = models.CharField(max_length=254, unique=True, blank=True, null=True, default=None)
     def __str__(self):
-        return self.name
+        return self.id
 
 class Follow(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following")
@@ -32,7 +32,7 @@ class Follow(models.Model):
 class Cluck(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="clucks") # should it be cascade or null?
     content = models.CharField(max_length=300)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=datetime.now())
     is_deleted = models.BooleanField(default=False)
 
     def __str__(self):

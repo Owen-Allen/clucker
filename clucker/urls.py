@@ -38,4 +38,6 @@ urlpatterns = [
     path('api/cluck_detail/', views.cluck_detail),
     path('api/follow_detail/', views.follow_detail),
     path('api/new_user/', views.new_user),
+    path('api/email_available/', views.email_available),
+    path('api/id_available/', views.id_available),
 ]
