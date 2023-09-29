@@ -1,6 +1,15 @@
 .vscode
 Pipfile.lock
 
+static
+.ebextensions/
+.ebignore
+back_arrow_icon.png
+back_arrow_icon.svg
+backup_requirements.txt
+backups/
+NOTES.md
+
 # Django #
 *.log
 *.pot
