@@ -9,7 +9,6 @@ export default function ProfileLikes({ user, profile }: any) {
     useEffect(() => {
         const getClucks = async () => {
             const response = await fetch(`${process.env.DB_HOST}/api/like_detail/?user=${profile.id}`)
-            console.log(response)
 
             if(response.status == 200){
                 const data = await response.json()
