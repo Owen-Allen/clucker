@@ -23,6 +23,7 @@
     "clsx": "^2.0.0",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.13",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.265.0",
     "next": "13.4.13",
     "next-auth": "^4.23.0",
