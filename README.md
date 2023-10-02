@@ -1,6 +1,8 @@
 # Clucker
 Clucker is a text-based social media app where people can share short messages, called clucks, with the world. User's can create a custom profile, follow their friends, share their ideas and like other clucks.
 
+[Live website](https://clucker.vercel.app/)
+
 <p float="left">
 <img alt="Image of feed" src="https://github.com/Owen-Allen/clucker/blob/main/images/feed.jpg" width="200">
 <img alt="Image of cluck form" src="https://github.com/Owen-Allen/clucker/blob/main/images/cluck.jpg" width="200">
