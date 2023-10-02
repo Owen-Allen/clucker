@@ -2,9 +2,11 @@
 Clucker is a text-based social media app where people can share short messages, called clucks, with the world. User's can create a custom profile, follow their friends, share their ideas and like other clucks.
 
 <p float="left">
-<img alt="Image of app feed" src="https://github.com/Owen-Allen/clucker/blob/main/images/feed.jpg" width="200">
-<img alt="Image of app profile" src="https://github.com/Owen-Allen/clucker/blob/main/images/profile.png" width="200">
-<img alt="Image of app login" src="https://github.com/Owen-Allen/clucker/blob/main/images/signin.png" width="200">
+<img alt="Image of feed" src="https://github.com/Owen-Allen/clucker/blob/main/images/feed.jpg" width="200">
+<img alt="Image of cluck form" src="https://github.com/Owen-Allen/clucker/blob/main/images/cluck.jpg" width="200">
+<img alt="Image of profile" src="https://github.com/Owen-Allen/clucker/blob/main/images/profile.jpg" width="200">
+<img alt="Image of followers list" src="https://github.com/Owen-Allen/clucker/blob/main/images/followers.jpg" width="200">
+<img alt="Image of login" src="https://github.com/Owen-Allen/clucker/blob/main/images/login.jpg" width="200">
 </p>
 
 
