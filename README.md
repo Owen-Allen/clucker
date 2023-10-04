@@ -36,7 +36,7 @@ Clucker is a text-based social media app where people can share short messages, 
 
 ### Backend
 - Django Rest Framework: The backend uses the Django Rest Framework for handling CRUD operations with the SQLite database.
-- NextAuth.js: To ensure secure sign-in authentication, we've integrated NextAuth.js, enabling Google sign-in and JWT (JSON Web Token) handling.
+- NextAuth.js: To ensure secure sign-in authentication, I integrated NextAuth.js, enabling Google sign-in and JWT (JSON Web Token) handling.
 
 ### Hosting:
 - AWS Elastic Beanstalk: The backend is hosted on AWS Elastic Beanstalk
