@@ -15,12 +15,11 @@ Clucker is a text-based social media app where people can share short messages, 
 ## Table of Contents
 
 - [Clucker](#clucker)
-  - [Description](#description)
   - [Tech Stack](#tech-stack)
   - [Installation](#installation)
     - [Django Backend Setup](#django-backend-setup)
     - [Next.js Frontend Setup](#nextjs-frontend-setup)
-- [Future Plans](#future-plans)
+  - [Future Plans](#future-plans)
   - [Author](#author)
   - [Acknowledgments](#acknowledgments)
   - [Resources](#resources)
