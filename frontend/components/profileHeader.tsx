@@ -93,7 +93,7 @@ export default function ProfileHeader({ user, profile, menu, setMenu }: any) {
 
             {/* FOLLOWER FOLLOWING DATA */}
             <div className="flex flex-row">
-                <CardContent className="w-3/5 sm:w-3/4 break-words">
+                <CardContent className="w-1/2 sm:w-3/4 break-words">
                     {profile.name}
                     {/* MYUSERNAMEIS50CHRMYUSERNAMEIS50CHRMYUSERNAMEIS50CH */}
                 </CardContent>
