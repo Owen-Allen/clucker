@@ -21,11 +21,14 @@ export interface Props {
 	is_deleted: boolean,
 }
 
+import EditCluckDropdown from "@/components/editCluckDropdown"
+
 
 export default function Cluck({ user_id, cluck_id, author, content, created_at, is_deleted }: Props) {
 	const date = new Date(created_at)
 	const date_readable = `${date.getHours() == 12 ? 12 : date.getHours() % 12}:${date.getMinutes().toString().padStart(2, '0')}${date.getHours() >= 12 ? "pm" : "am"} ${date.toDateString().split(" ").slice(1).join(" ")}`
 	const [liked, setLiked] = useState(false)
+	const [isDeleted, setIsDeleted] = useState(false)
 	const isMyCluck = user_id == author
 
 	const likeHandler = async (e: any) => {
@@ -69,15 +72,26 @@ export default function Cluck({ user_id, cluck_id, author, content, created_at, 
 		getLiked()
 	}, [cluck_id, user_id])
 
+	if(isDeleted){
+		return <></>
+	}
 	return (
 		<Card className="border-black rounded-2xl border-2 border-b-4 border-r-4 shadow-xl">
 			<CardHeader>
 				<CardTitle className="flex align-center w-full">
 					<Link className="hover:underline" href={`/user/${author}#top`}>{author}</Link>
-					<div className="flex flex-row ml-auto gap-1">
-						{/* {isMyCluck && <div className="-mt-2"><EditCluckDropdown cluck_id={cluck_id}/></div>} */}
+					
+					{isMyCluck ? 					
+					<div className="flex flex-row ml-auto gap-1 -mt-2">
+						<EditCluckDropdown cluck_id={cluck_id} setIsDeleted={setIsDeleted}/>
 						<LikesDropdown liked={liked} cluck_id={cluck_id} />
 					</div>
+					:
+					<div className="flex flex-row ml-auto gap-1">
+					<LikesDropdown liked={liked} cluck_id={cluck_id} />
+					</div>
+					}
+
 				</CardTitle>
 				<CardDescription></CardDescription>
 			</CardHeader>
