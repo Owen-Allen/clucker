@@ -2,10 +2,20 @@
 
 import { signIn } from "next-auth/react"
 
+import isWebview from "is-ua-webview"
+import { useToast } from "@/components/ui/use-toast"
+
+
 export default function GoogleSignInButton() {
+    const { toast } = useToast()
 
     const handleClick = async () => {
-        console.log('signin handler')
+        if (isWebview(window.navigator.userAgent)) {
+            toast({title: "Uh oh!",
+                  description: "Google does not support this browser for signin. Please use Safari or Chrome."
+            })
+            return
+          }
         await signIn("google", { callbackUrl: '/feed' })
     }
 

@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
+import { Toaster } from "@/components/ui/toaster";
+
 import Provider from "@/components/provider";
 
 export const metadata: Metadata = {
@@ -22,6 +24,7 @@ export default async function RootLayout({
         <Provider session={session}>
           {children}
         </Provider>
+        <Toaster />
       </body>
     </html>
   )
