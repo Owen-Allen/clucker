@@ -96,7 +96,7 @@ export default function Cluck({ user_id, cluck_id, author, content, created_at, 
 				<CardDescription></CardDescription>
 			</CardHeader>
 			<CardContent >
-				<p>{content}</p>
+				<p className="break-words">{content}</p>
 			</CardContent>
 			<CardFooter className="justify-end">
 				<a className="mr-auto text-xs text-slate-600">{date_readable}</a>
